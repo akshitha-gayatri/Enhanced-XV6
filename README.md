@@ -29,7 +29,16 @@ This project implements enhancements to system calls and scheduling algorithms i
    - A boost mechanism promotes all processes to the highest priority queue after a defined period.
 
 ## Implementation Details
-
+### how to run:
+1. **For Multi-Level Feedback Queue (MLFQ):**
+   make clean
+   make qemu CPUS=1 SCHEDULER=MLFQ
+2. **For Lottery-Based Scheduling (LBS):**
+   make clean
+   make qemu CPUS=2 SCHEDULER=LBS
+3. **For Default:**
+   make clean
+   make qemu
 ### System Call Counting
 
 - The `syscall_counts` array is defined in `sys_names.h`.
