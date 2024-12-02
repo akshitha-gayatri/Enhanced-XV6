@@ -30,7 +30,7 @@ This project implements enhancements to system calls and scheduling algorithms i
 
 ## Implementation Details
 ### how to run:
-1. **For Multi-Level Feedback Queue (MLFQ):**
+1. For Multi-Level Feedback Queue (MLFQ):
    
    make clean
    make qemu CPUS=1 SCHEDULER=MLFQ
