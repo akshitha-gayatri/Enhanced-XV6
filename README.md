@@ -30,16 +30,14 @@ This project implements enhancements to system calls and scheduling algorithms i
 
 ## Implementation Details
 ### how to run:
-1. For Multi-Level Feedback Queue (MLFQ):
-   
-   make clean
+1.**For Multi-Level Feedback Queue (MLFQ):**
+   make clean &&
    make qemu CPUS=1 SCHEDULER=MLFQ
-   
 3. **For Lottery-Based Scheduling (LBS):**
-   make clean
+   make clean && 
    make qemu CPUS=2 SCHEDULER=LBS
 4. **For Default:**
-   make clean
+   make clean &&
    make qemu
 ### System Call Counting
 
