@@ -121,8 +121,8 @@ To enhance memory efficiency, a **Copy-On-Write (COW)** mechanism has been imple
 
 ### Implementation Details
 
-- Modifications were made in the `fork` system call implementation to support COW.
-- The page fault handler was updated to handle COW scenarios by checking the access type and managing page copying when a write operation is attempted.
+- Modifications were made in the uvmcopy function to support COW.
+- A new page fault handler cow_page_fault_handler was implemented to handle COW scenarios by checking the access type and managing page copying when a write operation is attempted.
 - The reference counting mechanism ensures that memory is only freed when it is no longer in use.
 
 ### Conclusion
