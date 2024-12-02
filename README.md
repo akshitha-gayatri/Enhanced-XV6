@@ -97,7 +97,34 @@ This project implements enhancements to system calls and scheduling algorithms i
 ## Conclusion
 
 This project demonstrates the implementation of advanced system call handling and scheduling algorithms in a custom operating system. The enhancements aim to improve process management and responsiveness.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## License
+## Copy-On-Write Fork Implementation
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### Overview
+
+To enhance memory efficiency, a **Copy-On-Write (COW)** mechanism has been implemented for the `fork` system call. This approach allows multiple processes to share the same physical memory pages until one of them modifies a page. By deferring the actual copying of memory pages until a write operation occurs, COW significantly reduces memory usage and improves performance, especially in scenarios where processes are created frequently.
+
+### How It Works
+
+1. **Shared Memory Pages**: When a process calls `fork`, instead of creating a complete copy of the parent's memory space, the child process is given a reference to the same memory pages as the parent. Both processes initially share these pages.
+
+2. **Page Fault Handling**: If either the parent or the child attempts to write to a shared page, a page fault occurs. The operating system's page fault handler then creates a private copy of the page for the process that initiated the write. This ensures that changes made by one process do not affect the other.
+
+3. **Memory Management**: The kernel keeps track of the reference counts for each memory page. When the reference count drops to zero (i.e., no process is using the page), the memory can be safely deallocated.
+
+### Benefits
+
+- **Reduced Memory Usage**: By sharing pages until a modification is necessary, the overall memory footprint of processes is minimized.
+- **Improved Performance**: The overhead of copying large memory spaces is eliminated, leading to faster process creation.
+- **Efficient Memory Management**: The system dynamically allocates memory only when necessary, optimizing resource utilization.
+
+### Implementation Details
+
+- Modifications were made in the `fork` system call implementation to support COW.
+- The page fault handler was updated to handle COW scenarios by checking the access type and managing page copying when a write operation is attempted.
+- The reference counting mechanism ensures that memory is only freed when it is no longer in use.
+
+### Conclusion
+
+The implementation of Copy-On-Write for the `fork` system call is a significant enhancement that optimizes memory usage and improves overall system performance. This feature is particularly beneficial in environments where processes are frequently created and destroyed.
